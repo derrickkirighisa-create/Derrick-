@@ -1,4 +1,121 @@
-import { StyleSheet, Text, View } from 'react-native';
-const widgets=[{id:1,title:'Widget 1'},{id:2,title:'Widget 2'},{id:3,title:'Widget 3'}];
-export default function Dashboard(){return <View style={s.container}><Text style={s.eyebrow}>OVERVIEW</Text><Text style={s.title}>Dashboard</Text><Text style={s.subtitle}>Your workspace at a glance.</Text><View style={s.grid}>{widgets.map(w=><View key={w.id} style={s.card}><View style={s.badge}><Text style={s.badgeText}>{w.id}</Text></View><Text style={s.cardTitle}>{w.title}</Text><Text style={s.cardText}>Functionality coming later</Text></View>)}</View></View>}
-const s=StyleSheet.create({container:{flex:1,padding:24,backgroundColor:'#F8FAFC'},eyebrow:{fontSize:12,fontWeight:'800',letterSpacing:1.5,color:'#64748B',marginTop:18},title:{fontSize:34,fontWeight:'800',color:'#0F172A',marginTop:6},subtitle:{fontSize:15,color:'#64748B',marginTop:6,marginBottom:24},grid:{gap:14},card:{backgroundColor:'#FFF',borderRadius:20,padding:20,borderWidth:1,borderColor:'#E2E8F0',minHeight:145},badge:{width:34,height:34,borderRadius:17,backgroundColor:'#111827',alignItems:'center',justifyContent:'center',marginBottom:16},badgeText:{color:'#FFF',fontWeight:'800'},cardTitle:{fontSize:19,fontWeight:'800',color:'#0F172A'},cardText:{fontSize:14,color:'#64748B',marginTop:7}});
+import React, { useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
+
+export default function App() {
+  const [food, setFood] = useState("");
+  const [foods, setFoods] = useState<string[]>([]);
+
+  const addFood = () => {
+    if (food.trim() !== "") {
+      setFoods([...foods, food]);
+      setFood("");
+    }
+  };
+
+  return (
+    <ScrollView style={styles.container}>
+      <Text style={styles.title}>🍔 Food Dashboard</Text>
+      <Text style={styles.subtitle}>Welcome to your app</Text>
+
+      <View style={styles.card}>
+        <Text style={styles.cardTitle}>Add Food</Text>
+
+        <TextInput
+          style={styles.input}
+          placeholder="Enter food name"
+          value={food}
+          onChangeText={setFood}
+        />
+
+        <TouchableOpacity style={styles.button} onPress={addFood}>
+          <Text style={styles.buttonText}>Add Food</Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.card}>
+        <Text style={styles.cardTitle}>Today's Food</Text>
+
+        {foods.length === 0 ? (
+          <Text style={styles.empty}>No food added yet.</Text>
+        ) : (
+          foods.map((item, index) => (
+            <Text key={index} style={styles.foodItem}>
+              🍴 {item}
+            </Text>
+          ))
+        )}
+      </View>
+
+      <View style={styles.card}>
+        <Text style={styles.cardTitle}>Dashboard</Text>
+        <Text style={styles.info}>Total Foods: {foods.length}</Text>
+        <Text style={styles.info}>Status: Active ✅</Text>
+      </View>
+    </ScrollView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: "#f5f5f5",
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: "bold",
+    marginTop: 30,
+  },
+  subtitle: {
+    fontSize: 16,
+    color: "#666",
+    marginBottom: 20,
+  },
+  card: {
+    backgroundColor: "#fff",
+    padding: 20,
+    borderRadius: 15,
+    marginBottom: 20,
+  },
+  cardTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 15,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 10,
+    padding: 12,
+    marginBottom: 15,
+  },
+  button: {
+    backgroundColor: "#222",
+    padding: 14,
+    borderRadius: 10,
+    alignItems: "center",
+  },
+  buttonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  empty: {
+    color: "#777",
+  },
+  foodItem: {
+    fontSize: 17,
+    marginBottom: 10,
+  },
+  info: {
+    fontSize: 17,
+    marginBottom: 8,
+  },
+});
