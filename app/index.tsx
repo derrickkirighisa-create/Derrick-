@@ -1,6 +1,4 @@
-impexport default function Dashboard(){return <View style={s.container}><Text style={s.eyebrow}>OVERVIEW</Text><Text style={s.title}>Dashboard</Text><Text style={s.subtitle}>Your workspace at a glance.</Text><View style={s.grid}>{widgets.map(w=><View key={w.id} style={s.card}><View style={s.badge}><Text style={s.badgeText}>{w.id}</Text></View><Text style={s.cardTitle}>{w.title}</Text><Text style={s.cardText}>Functionality coming later</Text></View>)}</View></View>}
-ort { StyleSheet, Text, View } from 'react-native';
-const widgeteximport React, { useState } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -16,120 +14,141 @@ export default function App() {
 
   const addFood = () => {
     if (food.trim() === "") return;
-    setFoods([...foods, food]);
+
+    setFoods([...foods, food.trim()]);
     setFood("");
   };
 
+  const removeFood = (index: number) => {
+    setFoods(foods.filter((_, i) => i !== index));
+  };
+
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>🍽️ Nikila</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>🍽️ Food Dashboard</Text>
+      <Text style={styles.subtitle}>Manage your favourite foods</Text>
 
-      <Text style={styles.subtitle}>
-        Rekodi chakula unachokula kila siku
-      </Text>
+      <View style={styles.inputRow}>
+        <TextInput
+          style={styles.input}
+          placeholder="Enter food name"
+          value={food}
+          onChangeText={setFood}
+        />
 
-      <TextInput
-        style={styles.input}
-        placeholder="Andika chakula ulichokula..."
-        value={food}
-        onChangeText={setFood}
-      />
+        <TouchableOpacity style={styles.addButton} onPress={addFood}>
+          <Text style={styles.addText}>Add</Text>
+        </TouchableOpacity>
+      </View>
 
-      <TouchableOpacity style={styles.button} onPress={addFood}>
-        <Text style={styles.buttonText}>+ Ongeza Chakula</Text>
-      </TouchableOpacity>
+      <Text style={styles.heading}>My Foods</Text>
 
-      <Text style={styles.heading}>Chakula nilichokula</Text>
+      <ScrollView>
+        {foods.length === 0 ? (
+          <Text style={styles.empty}>No foods added yet.</Text>
+        ) : (
+          foods.map((item, index) => (
+            <View style={styles.foodItem} key={index}>
+              <Text style={styles.foodText}>🍴 {item}</Text>
 
-      {foods.length === 0 ? (
-        <Text style={styles.empty}>
-          Bado hujaongeza chakula.
-        </Text>
-      ) : (
-        foods.map((item, index) => (
-          <View style={styles.foodCard} key={index}>
-            <Text style={styles.foodText}>
-              {index + 1}. {item}
-            </Text>
-          </View>
-        ))
-      )}
-    </ScrollView>
+              <TouchableOpacity
+                style={styles.deleteButton}
+                onPress={() => removeFood(index)}
+              >
+                <Text style={styles.deleteText}>Delete</Text>
+              </TouchableOpacity>
+            </View>
+          ))
+        )}
+      </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
-    padding: 24,
+    flex: 1,
+    padding: 20,
     paddingTop: 60,
-    backgroundColor: "#f5f7fa",
+    backgroundColor: "#f5f5f5",
   },
 
   title: {
-    fontSize: 34,
+    fontSize: 30,
     fontWeight: "bold",
-    textAlign: "center",
-    marginBottom: 10,
+    marginBottom: 8,
   },
 
   subtitle: {
-    fontSize: 17,
-    textAlign: "center",
+    fontSize: 16,
     color: "#666",
+    marginBottom: 25,
+  },
+
+  inputRow: {
+    flexDirection: "row",
     marginBottom: 30,
   },
 
   input: {
+    flex: 1,
     backgroundColor: "#fff",
     borderWidth: 1,
     borderColor: "#ddd",
-    borderRadius: 12,
-    padding: 15,
+    borderRadius: 10,
+    paddingHorizontal: 15,
     fontSize: 16,
-    marginBottom: 15,
   },
 
-  button: {
+  addButton: {
+    marginLeft: 10,
     backgroundColor: "#222",
-    padding: 16,
-    borderRadius: 12,
-    alignItems: "center",
+    paddingHorizontal: 20,
+    justifyContent: "center",
+    borderRadius: 10,
   },
 
-  buttonText: {
+  addText: {
     color: "#fff",
-    fontSize: 17,
     fontWeight: "bold",
+    fontSize: 16,
   },
 
   heading: {
     fontSize: 22,
     fontWeight: "bold",
-    marginTop: 35,
     marginBottom: 15,
   },
 
   empty: {
     color: "#777",
     fontSize: 16,
-    textAlign: "center",
-    marginTop: 20,
   },
 
-  foodCard: {
+  foodItem: {
     backgroundColor: "#fff",
-    padding: 18,
+    padding: 15,
     borderRadius: 12,
-    marginBottom: 10,
-    borderWidth: 1,
-    borderColor: "#eee",
+    marginBottom: 12,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
 
   foodText: {
     fontSize: 17,
+    fontWeight: "500",
   },
-}); port default function Dashboard(){return <View style={s.container}><Text style={s.eyebrow}>OVERVIEW</Text><Text style={s.title}>Dashboard</Text><Text style={s.subtitle}>Your workspace at a glance.</Text><View style={s.grid}>{widgets.map(w=><View key={w.id} style={s.card}><View style={s.badge}><Text style={s.badgeText}>{w.id}</Text></View><Text style={s.cardTitle}>{w.title}</Text><Text style={s.cardText}>Functionality coming later</Text></Views=[{id:1,title:'Widget 1'},{id:2,title:'Widget 2'},{id:3,title:'Widget 3'}];
-export default function Dashboard(){return <View style={s.container}><Text style={s.eyebrow}>OVERVIEW</Text><Text style={s.title}>Dashboard</Text><Text style={s.subtitle}>Your workspace at a glance.</Text><View style={s.grid}>{widgets.map(w=><View key={w.id} style={s.card}><View style={s.badge}><Text style={s.badgeText}>{w.id}</Text></View><Text style={s.cardTitle}>{w.title}</Text><Text style={s.cardText}>Functionality coming later</Text></View>)}</View></View>}
-const s=StyleSheet.create({container:{flex:1,padding:24,backgroundColor:'#F8FAFC'},eyebrow:{fontSize:12,fontWeight:'800',letterSpacing:1.5,color:'#64748B',marginTop:18},title:{fontSize:34,fontWeight:'800',color:'#0F172A',marginTop:6},subtitle:{fontSize:15,color:'#64748B',marginTop:6,marginBottom:24},grid:{gap:14},card:{backgroundColor:'#FFF',borderRadius:20,padding:20,borderWidth:1,borderColor:'#E2E8F0',minHeight:145},badge:{width:34,height:34,borderRadius:17,backgroundColor:'#111827',alignItems:'center',justifyContent:'center',marginBottom:16},badgeText:{color:'#FFF',fontWeight:'800'},cardTitle:{fontSize:19,fontWeight:'800',color:'#0F172A'},cardText:{fontSize:14,color:'#64748B',marginTop:7}});
-export default function Dashboard(){return <View style={s.container}><Text style={s.eyebrow}>OVERVIEW</Text><Text style={s.title}>Dashboard</Text><Text style={s.subtitle}>Your workspace at a glance.</Text><View style={s.grid}>{widgets.map(w=><View key={w.id} style={s.card}><View style={s.badge}><Text style={s.badgeText}>{w.id}</Text></View><Text style={s.cardTitle}>{w.title}</Text><Text style={s.cardText}>Functionality coming later</Text></View>)}</View></View>}
+
+  deleteButton: {
+    paddingVertical: 7,
+    paddingHorizontal: 10,
+    backgroundColor: "#eee",
+    borderRadius: 8,
+  },
+
+  deleteText: {
+    fontSize: 13,
+    fontWeight: "bold",
+  },
+});
